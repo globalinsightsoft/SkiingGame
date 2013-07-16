@@ -1,0 +1,40 @@
+<div class= "viewBackground">
+ 	<div class="content" style="padding:0;overflow:scroll;" id="startView_scroller">
+ 		<div id="startView_contentArea" style="padding:0;height: auto;position: relative;"></div>
+ 	</div>
+ </div>
+ 
+ <div id="startView_actions" class="hidden">
+ 	<div id="startView_startButton" ontouchend="startView.start();">%PLAY%</div>
+ 	<div id="startView_optionsButton" ontouchend="startView.options();">%OPTIONS%</div>
+ </div>
+
+<script>
+	var startView = $ge("startView") || {};
+	var levelChoose;
+	startView.initializeView = function(){
+		$ge("startView_contentArea").innerHTML = PKUTIL.instanceOfTemplate($ge("startView_actions"),
+												{
+													"play":__T("PLAY"),
+													"options":__T("OPTIONS")
+												});
+		if(device.platform != "WinCE"){
+			startView.myScroll = new SCROLLER.GenericScroller('startView_contentArea');
+		}
+	}
+	
+	startView.start = function(){
+		PKUI.CORE.pushView(startLevel);
+	}
+	
+	startView.options = function(){
+		PKUI.CORE.pushView(optionsView);
+	}
+	
+	
+	
+	startView.viewWillAppear = function(){}
+	
+	startView.viewWillHide = function(){}
+	
+</script>

@@ -1,0 +1,51 @@
+<div class="viewBackground">
+
+	<div class="content" style="padding:0;overflow:scroll;" id="startLevel_scroller">
+ 		<div id="startLevel_contentArea" style="padding:0;height: auto;position: relative;"></div>
+ 	</div>
+ 	
+ 	 	<div id="startLevel_actions" class="hidden">
+		<div id="startLevel_amateur" ontouchend="startLevel.start('amateur');">%AMATEUR%</div>
+		<div id="startLevel_medium" ontouchend="startLevel.start('medium');">%MEDIUM%</div>
+		<div id="startLevel_expert" ontouchend="startLevel.start('expert');">%EXPERT%</div>
+		
+	</div>
+</div>
+
+	
+
+
+<script>
+var startLevel = $ge("startLevel") || {};
+var levelPlayer;
+
+
+startLevel.initializeView = function(){
+	$ge("startLevel_contentArea").innerHTML = PKUTIL.instanceOfTemplate($ge("startLevel_actions"),
+			{
+				"amateur":__T("AMATEUR"),
+				"medium":__T("MEDIUM"),
+				"expert":__T("EXPERT")
+				
+			});
+	if(device.platform != "WinCE"){
+		startView.myScroll = new SCROLLER.GenericScroller('startLevel_contentArea');
+	}
+}
+
+startLevel.start= function(nivel){
+	levelPlayer = nivel;
+	PKUI.CORE.pushView(gameViewSki);
+	
+}
+
+startLevel.getLevelPlayer = function(){
+	return levelPlayer;
+}
+
+
+startView.viewWillAppear = function(){}
+
+startView.viewWillHide = function(){}
+
+</script>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<div class="viewBackground">
+	<div id="optionsView_contentArea" style="padding: 0;height: auto; position: relative;">
+	</div>
+	
+	<div id="optionsView_actions" class="hidden">
+		<div id="optionsView_changeControls">
+			<div id="optionsView_tilt" ontouchend="optionsView.selectTilt();">
+				<img src="./images/tilt.png" width="128" height="128">
+				%TILT%
+			</div>
+			<div id="optionsView_slide" ontouchend="optionsView.selectSlide();">
+				<img src="./images/slide.png" width="128" height="128">
+				%SLIDE%
+			</div>
+		</div>
+		<div id="optionsView_backButton" ontouchend="PKUI.CORE.popView();">%BACK%</div>
+	</div>
+	
+</div>
+
+
+<script type="text/javascript">
+
+	var optionsView = $ge("optionsView") || {};
+	
+	//__T localization.js
+	optionsView.initializeView = function(){
+		$ge("optionsView_contentArea").innerHTML = PKUTIL.instanceOfTemplate($ge("optionsView_actions"),
+													{
+														"tilt":__T("TILT"),
+														"slide":__T("SLIDE"),
+														"back":__T("BACK")
+													});
+		optionsView.displayControlSetting();
+	}
+	
+	optionsView.displayControlSetting = function(){
+		$ge("optionsView_slide").className ="";
+		$ge("optionsView_tilt").className="";
+		
+		if(localStorage.controlSetting){
+			//use trhe saved setting
+			if(localStorage.controlSetting == "slide"){
+				$ge("optionsView_slide").className = "selected";
+			}else{
+				$ge("optionsView_tilt").className = "selected";
+			}
+			
+		}else{
+			$ge("optionsView_slide").className = "selected";
+		}
+	}
+	
+	
+	optionsView.selectTilt = function(){
+		localStorage.controlSetting = "tilt";
+		optionsView.displayControlSetting();
+	}
+	
+	optionsView.selectSlide = function(){
+		localStorage.controlSetting = "slide";
+		optionsView.displayControlSetting();
+	}
+	
+	optionsView.viewWillAppear = function(){}
+	
+	optionsView.viewWillHide = function(){}
+	
+	optionsView.backButtonPresses = function(){
+		PKUI.CORE.popView();
+	}
+	
+	
+	
+	
+	
+	
+	
+</script>
